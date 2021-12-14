@@ -6,6 +6,7 @@ import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
+import routers from './routers/index'
 
 // Middleware
 const app = express()
@@ -16,10 +17,13 @@ app.use(morgan('dev'))
 app.use(cookieParser()) // Get Cookies
 
 // Connect databast
-import './config/database`'
+import './config/database'
 
 // Server listening
 const PORT = 5000 || process.env.PORT
 app.listen(PORT, () => {
     console.log("Server is running on port:", PORT)
 })
+
+// Route
+app.use('/api', routers.authRouter)
