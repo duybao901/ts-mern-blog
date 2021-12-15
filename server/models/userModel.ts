@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-
+import { User } from '../config/interface'
 const userScheme = new mongoose.Schema({
     name: {
         type: String,
@@ -30,7 +30,9 @@ const userScheme = new mongoose.Schema({
         type: String,
         default: 'register'
     }
+}, {
+    timestamps: true
 })
 
 // Create model
-export default mongoose.model("User", userScheme)
+export default mongoose.model<User>("User", userScheme)
