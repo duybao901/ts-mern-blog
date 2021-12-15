@@ -2,12 +2,14 @@ import { Request, Response } from 'express'
 import Users from '../models/userModel'
 import brcypt from 'bcrypt' // Hasd password
 import { generateActiveToken } from '../config/generateToken'
-
+import sendMail from '../config/sendMail'
+import { sendSms } from '../config/sendSms'
 // Valid
 import { validEmail, validPhone } from '../middleware/valid'
 
 // Interface
 import { NewUser } from '../config/interface'
+
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -30,12 +32,18 @@ class AuthController {
         }
 
         if (validEmail(account)) {
+
+            sendMail(account, url, "Active Account", "Verify your email address");
+
             return res.json({
                 msg: "Active account!, Please check your email.",
                 data: newUser,
                 active_token: active_token,
             })
         } else if (validPhone(account)) {
+
+            sendSms("Veryfy your phone", url, account)
+
             return res.json({
                 msg: "Active account!, Please check your phone.",
                 data: newUser,
