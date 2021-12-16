@@ -2,15 +2,13 @@ import { Request, Response } from 'express'
 import Users from '../models/userModel'
 import brcypt from 'bcrypt' // Hasd password
 import jwt from 'jsonwebtoken'
-import { generateActiveToken } from '../config/generateToken'
+import { generateActiveToken, generateAccessToken, generateRefreshToken } from '../config/generateToken'
 import sendMail from '../config/sendMail'
 import { sendSms } from '../config/sendSms'
 // Valid
 import { validEmail, validPhone } from '../middleware/valid'
 // Interface
-import { NewUser, DecodeToken } from '../config/interface'
-
-
+import { User, NewUser, DecodeToken } from '../config/interface'
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -61,11 +59,11 @@ class AuthController {
     async activeAccount(req: Request, res: Response) {
         try {
             const { active_token } = req.body;
-      
+
             const decode = await <DecodeToken>jwt.verify(active_token, `${process.env.ACTIVE_TOKEN}`);
-       
+
             const { newUser } = decode
-        
+
             if (!newUser) {
                 return res.status(400).json({ msg: "Invalid authentication" })
             }
@@ -83,6 +81,74 @@ class AuthController {
             return res.status(500).json({ msg: err.message })
         }
     }
+
+    async login(req: Request, res: Response) {
+        try {
+            const { account, password } = req.body;
+
+            const user = await Users.findOne({ account });
+            if (!user) return res.status(400).json({ msg: "Account is not exits." })
+
+            loginUser(user, password, res);
+
+        } catch (err: any) {
+            return res.status(500).json({ msg: err.message })
+        }
+    }
+
+    async logout(req: Request, res: Response) {
+        try {
+            res.clearCookie("refreshtoken");
+            return res.json({ msg: "Logout success." })
+        } catch (err: any) {
+            return res.status(500).json({ msg: err.message })
+        }
+    }
+
+    async refreshToken(req: Request, res: Response) {
+        try {
+            const refresh_token = req.cookies.refreshToken;
+            
+            if (!refresh_token) return res.status(400).json({ msg: "Please login now!" })
+
+            const decode = await <DecodeToken>jwt.verify(refresh_token, `${process.env.REFRESH_TOKEN}`);
+
+            if (!decode.id) return res.status(400).json({ msg: "Please login now!" })
+
+            const user = await Users.findById(decode.id);
+            if (!user) return res.status(400).json({ msg: "This account is not exits." })
+
+            const access_token = generateAccessToken({ id: user._id })
+
+            return res.json({ user, access_token })
+
+        } catch (err: any) {
+            return res.status(500).json({ msg: err.message })
+        }
+    }
+
 }
+
+const loginUser = async (user: User, password: string, res: Response) => {
+    const isMatch = await brcypt.compare(password, user.password)
+    if (!isMatch) return res.status(400).json({ msg: "Password is incorrect." })
+
+    const access_token = generateAccessToken({ id: user._id });
+    const refresh_token = generateRefreshToken({ id: user._id });
+
+    res.cookie('refreshToken', refresh_token, {
+        httpOnly: true,
+        path: '/api/refresh_token',
+        maxAge: 30 * 24 * 60 * 60 * 100 // 30day
+    })
+
+    return res.json({
+        msg: "Login success",
+        access_token,
+        user
+    })
+}
+
+
 
 export default new AuthController
