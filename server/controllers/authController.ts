@@ -98,7 +98,7 @@ class AuthController {
 
     async logout(req: Request, res: Response) {
         try {
-            res.clearCookie("refreshtoken");
+            res.clearCookie("refreshToken", { path: "/api/refresh_token" });
             return res.json({ msg: "Logout success." })
         } catch (err: any) {
             return res.status(500).json({ msg: err.message })
@@ -108,7 +108,7 @@ class AuthController {
     async refreshToken(req: Request, res: Response) {
         try {
             const refresh_token = req.cookies.refreshToken;
-            
+
             if (!refresh_token) return res.status(400).json({ msg: "Please login now!" })
 
             const decode = await <DecodeToken>jwt.verify(refresh_token, `${process.env.REFRESH_TOKEN}`);
