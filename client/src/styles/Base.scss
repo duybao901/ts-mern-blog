@@ -1,0 +1,17 @@
+a {
+    text-decoration: none;
+
+    &:hover {
+        color: currentColor;
+    }
+}
+
+ul {
+    list-style: none;
+}
+
+.container{
+    max-width: 1150px;
+    width: 1150px;
+    margin: 0 auto;
+}

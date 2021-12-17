@@ -1,0 +1,61 @@
+.header {
+    width: 100vw;
+    height: 95px;
+    background-color: var(--color-white);
+    border-bottom: 1px solid rgb(216, 216, 216);
+    box-shadow: rgba(149, 157, 165, 0.1) 0px 12px 42px;
+
+    transition: height 0.3s linear;
+    position: fixed;
+    top: 0;
+    left: 0;
+    &.sticky {
+        height: 80px;
+    }
+
+    &__container {
+        width: 1366px;
+        height: 100%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &__logo {
+        font-size: 3rem;
+        color: var(--color-black);
+        font-weight: 700;
+
+        & a {
+            color: var(--color-black);
+            & span {
+                color: var(--color-primary);
+            }
+        }
+    }
+    &__menu {
+        & ul {
+            display: flex;
+            align-items: center;
+            & li {
+                margin-left: 55px;
+                & a {
+                    font-size: 1.5rem;
+                    color: var(--color-text-gray);
+                    text-transform: capitalize;
+                    &:hover {
+                        color: var(--color-black-2);
+                    }
+                    &.active {
+                        color: var(--color-black);
+                        font-weight: 500;
+                    }
+                }
+                & i {
+                    font-size: 2rem;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
