@@ -17,8 +17,7 @@ const Header = () => {
     }
 
     useEffect(() => {
-        const handleScroll = () => {
-         
+        const handleScroll = () => {         
             if (window.scrollY > 40) {
                 headerRef.current.classList.add('sticky')
             } else {

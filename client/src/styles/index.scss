@@ -23,7 +23,6 @@
 html {
     font-size: 62.5%;
     font-family: "Fira Sans", sans-serif;
-    line-height: 1rem;
     font-weight: 400;
 }
 
@@ -37,3 +36,4 @@ body {
 @import url("./NotFound.scss");
 @import url("./Header.scss");
 @import url("./Search.scss");
+@import url("./Auth.scss");

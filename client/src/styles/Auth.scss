@@ -1,0 +1,83 @@
+.auth-page {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -50px;
+    &__body {
+        display: flex;
+        flex-direction: column;
+    }
+    &__header {
+        font-size: 4rem;
+        font-family: "Poppins", sans-serif;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    & form {
+        width: 400px;
+        & .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+
+            &-pw {
+                position: relative;
+                & span {
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    right: 10px;
+                    cursor: pointer;
+                    user-select: none;
+                }
+            }
+
+            & label {
+                font-size: 1.5rem;
+                font-weight: 500;
+                text-transform: capitalize;
+                color: var(--color-black-2);
+                margin-bottom: 6px;
+            }
+            & input {
+                width: 100%;
+                height: 45px;
+                border: 1px solid rgb(219, 219, 219);
+                color: rgb(41, 41, 41);
+                font-size: 15px;
+                line-height: 1.5;
+                font-weight: 400;
+                padding: 0px 15px;
+                transition: border-color 0.25s ease 0s;
+                &:focus {
+                    border: 1px solid var(--color-black);
+                    outline: none;
+                }
+            }
+        }
+        & .btn-primary {
+            margin-left: auto;
+            width: 100%;
+        }
+        & .fg-password {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+        }
+    }
+    &__forgot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 20px;
+        font-size: 1.5rem;
+        & a {
+            color: crimson;
+        }
+        & span {
+            cursor: pointer;
+        }
+    }
+}

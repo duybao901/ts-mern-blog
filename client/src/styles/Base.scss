@@ -10,8 +10,38 @@ ul {
     list-style: none;
 }
 
-.container{
+.container {
     max-width: 1150px;
     width: 1150px;
     margin: 0 auto;
+}
+
+.mr-top-header {
+    margin-top: 95px;
+}
+
+.btn-primary {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(41, 41, 41);
+    font-family: "Fira Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 0px 27px;
+    border: 0px;
+    color: var(--color-white);
+    height: 44px;
+    width: auto;
+    transition: all 0.2s linear;
+    &:hover {
+        background-color: rgb(73, 73, 73);
+    }
+    &--ds{
+        cursor: not-allowed;
+        &:hover{
+            background-color: rgb(41, 41, 41);
+        }
+    }
 }
