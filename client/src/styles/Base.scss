@@ -1,6 +1,5 @@
 a {
     text-decoration: none;
-
     &:hover {
         color: currentColor;
     }
@@ -18,6 +17,19 @@ ul {
 
 .mr-top-header {
     margin-top: 95px;
+}
+
+.logo {
+    font-size: 3rem;
+    color: var(--color-black);
+    font-weight: 700;
+
+    & a {
+        color: var(--color-black);
+        & span {
+            color: var(--color-primary);
+        }
+    }
 }
 
 .btn-primary {
@@ -38,9 +50,9 @@ ul {
     &:hover {
         background-color: rgb(73, 73, 73);
     }
-    &--ds{
+    &--ds {
         cursor: not-allowed;
-        &:hover{
+        &:hover {
             background-color: rgb(41, 41, 41);
         }
     }

@@ -14,7 +14,7 @@ const Login = () => {
                     <p>You don't have account? <Link style={{ color: "crimson" }} to='/register'>register now</Link></p>
                 </div>
                 {!signSms ? <LoginPass /> : <LoginSms />}
-                < div className="auth-page__forgot">
+                <div className="auth-page__forgot">
                     <Link to='/forgot'>For got password?</Link>
                     <span onClick={() => setSignSms(!signSms)}>{!signSms ? "Sign in with SMS" : "Sign in with Password"}</span>
                 </div>

@@ -2,12 +2,13 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import PageRender from './PageRender';
 import Header from './components/global/Header';
+import Alert from './components/alert/Alert';
 function App() {
   return (
     <div className="App">
       <Router>
-        <Header />
-        {/* Alert and Header */}
+        <Header />        {/* Alert and Header */}
+        <Alert />
         <Switch>
           <Route path='/' exact component={PageRender}></Route>
           <Route path='/:page' exact component={PageRender}></Route>

@@ -1,10 +1,10 @@
 import { ChangeEvent } from 'react'
+import rootReducer from '../redux/reducers/index'
 
 export type InputChange = ChangeEvent<HTMLInputElement>
 export type FormSubmit = ChangeEvent<HTMLFormElement>
 
-
-
+export type RootStore = ReturnType<typeof rootReducer>
 
 export interface Params {
     page: string
