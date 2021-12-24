@@ -1,7 +1,7 @@
 @use "./Reponsive" as Reponsive;
 .header {
     width: 100vw;
-    height: 95px;
+    height: var(--header-height);
     background-color: var(--color-white);
     border-bottom: 1px solid rgb(216, 216, 216);
     box-shadow: rgba(149, 157, 165, 0.1) 0px 12px 42px;
@@ -114,8 +114,9 @@
                     padding: 30px;
                     background-color: #21313c;
                     & img {
-                        width: 45px;
+                        width: 50px;
                         margin-bottom: 20px;
+                        border-radius: 50%;
                     }
                     & p {
                         color: var(--color-white);

@@ -20,3 +20,18 @@ export interface DecodeToken {
     iat: number
     exp: number
 }
+
+export interface GooglePayload {
+    email: string
+    email_verified: boolean
+    name: string
+    picture: string
+}
+
+export interface ParamsUser {
+    name: string
+    account: string
+    password: string
+    avatar: string
+    type: string
+}

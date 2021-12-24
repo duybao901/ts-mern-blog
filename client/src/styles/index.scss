@@ -1,11 +1,12 @@
-@use "./Base";
-@use "./NotFound";
-@use "./Header";
-@use "./Search";
-@use "./Auth";
-@use "./Alert";
+@forward "./Base";
+@forward "./NotFound";
+@forward "./Header";
+@forward "./Search";
+@forward "./Auth";
+@forward "./Alert";
 
 :root {
+    --header-height: 95px;
     --color-primary: rgb(247, 59, 152);
 
     --color-black: #000;
@@ -41,4 +42,5 @@ body {
     width: 100vw;
     max-width: 100vw;
     overflow-x: hidden;
+    padding-top: var(--header-height);
 }

@@ -6,7 +6,9 @@ const router = express.Router()
 router.post('/register', authController.register)
 router.post('/active', authController.activeAccount)
 router.post('/login', authController.login)
+router.post('/login_google', authController.googleLogin)
 router.get('/refresh_token', authController.refreshToken)
 router.get('/logout', authController.logout)
+
 
 export default router

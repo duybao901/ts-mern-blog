@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RootStore } from '../utils/TypeScript'
 import { useHistory } from 'react-router-dom'
+import SocialLogin from '../components/auth/SocialLogin'
 const Login = () => {
     const history = useHistory()
     const { auth } = useSelector((state: RootStore) => state)
@@ -15,7 +16,7 @@ const Login = () => {
         }
     }, [auth.access_token])
     return (
-        <div className='auth-page mr-top-header'>
+        <div className='auth-page'>
             <div className='auth-page__body'>
                 <h2 className='auth-page__header'>Login</h2>
                 <div style={{ textAlign: 'center', marginBottom: "30px", fontSize: "15px" }}>
@@ -26,6 +27,10 @@ const Login = () => {
                     <Link to='/forgot'>For got password?</Link>
                     <span onClick={() => setSignSms(!signSms)}>{!signSms ? "Sign in with SMS" : "Sign in with Password"}</span>
                 </div>
+                <div className='auth-page__indicator'>
+                    <p>or</p>
+                </div>
+                <SocialLogin></SocialLogin>
             </div>
         </div >
     )

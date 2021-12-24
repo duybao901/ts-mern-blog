@@ -8,8 +8,9 @@ import { sendSms } from '../config/sendSms'
 // Valid
 import { validEmail, validPhone } from '../middleware/valid'
 // Interface
-import { User, NewUser, DecodeToken } from '../config/interface'
-
+import { User, NewUser, DecodeToken, GooglePayload, ParamsUser } from '../config/interface'
+import { OAuth2Client } from 'google-auth-library'
+const client = new OAuth2Client(`${process.env.MAILING_CLIENT_ID}`)
 const BASE_URL = process.env.BASE_URL;
 
 class AuthController {
@@ -127,6 +128,40 @@ class AuthController {
         }
     }
 
+    async googleLogin(req: Request, res: Response) {
+        try {
+
+            const { id_token } = req.body;
+            const verify = await client.verifyIdToken({
+                idToken: id_token
+            })
+            const { name, email, email_verified, picture } = <GooglePayload>verify.getPayload();
+            if (!email_verified)
+                return res.status(400).json({ msg: "Email vefification failed." })
+
+            const password = email + "Nnew6WPx7uMYNcT7Bwsc"
+            const passwordHash = await brcypt.hash(password, 12);
+
+            const user = await Users.findOne({ account: email })
+
+            if (user) {
+                loginUser(user, password, res);
+            } else {
+                const user = {
+                    name,
+                    account: email,
+                    password: passwordHash,
+                    avatar: picture,
+                    type: 'login'
+                }
+                registerUser(user, res)
+            }
+
+        } catch (err: any) {
+            return res.status(500).json({ msg: err.message })
+        }
+    }
+
 }
 
 const loginUser = async (user: User, password: string, res: Response) => {
@@ -137,6 +172,26 @@ const loginUser = async (user: User, password: string, res: Response) => {
     const refresh_token = generateRefreshToken({ id: user._id });
 
     res.cookie('refreshToken', refresh_token, {
+        httpOnly: true,
+        path: '/api/refresh_token',
+        maxAge: 30 * 24 * 60 * 60 * 100 // 30day
+    })
+
+    return res.json({
+        msg: "Login success",
+        access_token,
+        user
+    })
+}
+
+const registerUser = async (user: ParamsUser, res: Response) => {
+    const newUser = new Users(user)
+    await newUser.save()
+
+    const access_token = generateAccessToken({ id: newUser._id })
+    const refresh_token = generateRefreshToken({ id: newUser._id });
+
+    res.cookie("refreshToken", refresh_token, {
         httpOnly: true,
         path: '/api/refresh_token',
         maxAge: 30 * 24 * 60 * 60 * 100 // 30day

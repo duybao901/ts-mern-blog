@@ -87,7 +87,6 @@ const Header = () => {
                         </ul>
                     </div>
                 </div>
-
                 <div className="logo">
                     <Link to='/'>Blog<span>Hub</span></Link>
                 </div>
@@ -116,7 +115,7 @@ const Header = () => {
                                         </li>
                                         <ul className={openSubMenuUser ? 'user__sub-menu active' : 'user__sub-menu'}>
                                             <div className="">
-                                                <img src="https://res.cloudinary.com/dxnfxl89q/image/upload/v1639402086/samples/blogging_xuafvm.png" alt="logo" />
+                                                <img src={auth.user?.avatar} alt="logo" />
                                                 <p>{auth.user?.name}</p>
                                                 <span>{auth.user?.account}</span>
                                                 <Link to='/profile' onClick={() => setOpenSubMenuUser(false)}>

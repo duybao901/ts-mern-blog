@@ -72,3 +72,16 @@ export const logout = () => async (dispatch: Dispatch<AuthType | AlertType>) => 
         return dispatch({ type: ALERT, payload: { error: err.response.data.msg } })
     }
 }
+
+export const googleLogin = (tokenId: string) => async (dispatch: Dispatch<AuthType | AlertType>) => {
+    if (!tokenId) return
+    try {
+        dispatch({ type: ALERT, payload: { loading: true } })
+        const res = await postAPI('login_google', { id_token: tokenId })
+        dispatch({ type: AUTH, payload: res.data });
+        dispatch({ type: ALERT, payload: { loading: false } })
+        localStorage.setItem('firstLogin', "bloghub-login");
+    } catch (err: any) {
+        return dispatch({ type: ALERT, payload: { error: err.response.data.msg } })
+    }
+}
