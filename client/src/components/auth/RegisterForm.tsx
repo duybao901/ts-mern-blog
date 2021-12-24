@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { InputChange, FormSubmit } from '../../utils/TypeScript'
 import { useDispatch } from 'react-redux'
-import { login } from '../../redux/actions/authActions'
+import { register } from '../../redux/actions/authActions'
 
 const RegisterForm = () => {
     const dispatch = useDispatch()
@@ -23,7 +23,7 @@ const RegisterForm = () => {
 
     const onHandleSubmit = (e: FormSubmit) => {
         e.preventDefault()
-        console.log(userRegister)
+        dispatch(register(userRegister))
     }
 
     return (

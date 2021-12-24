@@ -1,3 +1,4 @@
+@use "./Reponsive.scss" as Reponsive;
 .auth-page {
     width: 100vw;
     height: 100vh;
@@ -78,6 +79,37 @@
         }
         & span {
             cursor: pointer;
+        }
+    }
+
+    // Reponsive
+    @include Reponsive.MediaQuery(MD) {
+        // Ipad
+        &.mr-top-header {
+            margin-top: -80px !important;
+        }
+
+        &__body {
+            width: 600px;
+        }
+
+        & form {
+            width: 100%;
+        }
+    }
+
+    @include Reponsive.MediaQuery(SM) {
+        &.mr-top-header {
+            margin-top: -50px !important;
+        }
+        &__body {
+            padding: 200px 45px 0px;
+        }
+    }
+
+    @include Reponsive.MediaQuery(VXS) {
+        &__body {
+            padding: 300px 45px 0px;
         }
     }
 }

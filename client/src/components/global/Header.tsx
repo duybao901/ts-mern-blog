@@ -1,11 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Search from './Search'
-
+import { useSelector, useDispatch } from 'react-redux'
+import { RootStore } from '../../utils/TypeScript'
+import { logout } from '../../redux/actions/authActions'
 const Header = () => {
+    const dispatch = useDispatch()
     const location = useLocation()
-    const [openSearch, setOpenSearch] = useState(false)
-    const [openMenuLeftSide, setOpenMenuLeftSide] = useState(false)
+    const { auth } = useSelector((state: RootStore) => state)
+    const [openSearch, setOpenSearch] = useState(false);
+    const [openMenuLeftSide, setOpenMenuLeftSide] = useState(false);
+    const [openSubMenuUser, setOpenSubMenuUser] = useState(false);
 
     const headerRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
@@ -32,6 +37,11 @@ const Header = () => {
         }
     }, [])
 
+    const userLogout = () => {
+        setOpenSubMenuUser(false)
+        dispatch(logout())
+    }
+
     return (
         <div className="header" ref={headerRef}>
             <div className='header__container'>
@@ -39,7 +49,7 @@ const Header = () => {
                     <i className='bx bx-menu-alt-left' onClick={() => setOpenMenuLeftSide(true)}></i>
                 </div>
                 <div className={openMenuLeftSide ? "header__menu-lsb active" : "header__menu-lsb"}>  {/* -> For Reponsive */}
-                    <div className={openMenuLeftSide ? "drawer-mask active" : "drawer-mask"}>
+                    <div onClick={() => setOpenMenuLeftSide(false)} className={openMenuLeftSide ? "drawer-mask active" : "drawer-mask"}>
                     </div>
                     <div className={openMenuLeftSide ? "sidebar active" : "sidebar"}>
                         <div className="sidebar__header">
@@ -54,19 +64,32 @@ const Header = () => {
                                     <Link onClick={() => setOpenMenuLeftSide(false)} to={`${item.path}`} className={activeMenu(item.path)}>{item.label}</Link>
                                 </li>
                             })}
-                            <li>
-                                <Link onClick={() => setOpenMenuLeftSide(false)} to="/register" className={activeMenu('/register')}>register</Link>
-                            </li>
-                            <li>
-                                <Link onClick={() => setOpenMenuLeftSide(false)} to="/login" className={activeMenu('/login')}>login</Link>
-                            </li>
+                            {
+                                auth.access_token ?
+                                    <>
+                                        <li>
+                                            <Link to='profile'>Profile</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="#" onClick={userLogout}>Logout</Link>
+                                        </li>
+                                    </>
+                                    :
+                                    <>
+                                        <li>
+                                            <Link onClick={() => setOpenMenuLeftSide(false)} to="/register" className={activeMenu('/register')}>register</Link>
+                                        </li>
+                                        <li>
+                                            <Link onClick={() => setOpenMenuLeftSide(false)} to="/login" className={activeMenu('/login')}>login</Link>
+                                        </li>
+                                    </>
+                            }
                         </ul>
                     </div>
                 </div>
 
                 <div className="logo">
                     <Link to='/'>Blog<span>Hub</span></Link>
-
                 </div>
                 <div className='header__menu'>
                     <ul>
@@ -75,12 +98,39 @@ const Header = () => {
                                 <Link to={`${item.path}`} className={activeMenu(item.path)}>{item.label}</Link>
                             </li>
                         })}
-                        <li>
-                            <Link to="/register" className={activeMenu('/register')}>register</Link>
-                        </li>
-                        <li>
-                            <Link to="/login" className={activeMenu('/login')}>login</Link>
-                        </li>
+                        {
+                            !auth.access_token ?
+                                <>
+                                    <li>
+                                        <Link to="/register" className={activeMenu('/register')}>register</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/login" className={activeMenu('/login')}>login</Link>
+                                    </li>
+                                </> :
+                                <>
+                                    <div className="header__menu-user">
+                                        <li className="user__infor" onClick={() => setOpenSubMenuUser(!openSubMenuUser)}>
+                                            <p className="user__infor-name">{auth.user?.name}</p>
+                                            <span><i className='bx bxs-down-arrow'></i></span>
+                                        </li>
+                                        <ul className={openSubMenuUser ? 'user__sub-menu active' : 'user__sub-menu'}>
+                                            <div className="">
+                                                <img src="https://res.cloudinary.com/dxnfxl89q/image/upload/v1639402086/samples/blogging_xuafvm.png" alt="logo" />
+                                                <p>{auth.user?.name}</p>
+                                                <span>{auth.user?.account}</span>
+                                                <Link to='/profile' onClick={() => setOpenSubMenuUser(false)}>
+                                                    Manage your BlogHub Account
+                                                </Link>
+                                            </div>
+
+                                            <li>
+                                                <Link to="#" onClick={userLogout}>Logout</Link>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </>
+                        }
                         <li>
                             <i className='bx bx-search' onClick={() => setOpenSearch(!openSearch)}></i>
                         </li>
@@ -97,3 +147,4 @@ const Header = () => {
 }
 
 export default Header
+

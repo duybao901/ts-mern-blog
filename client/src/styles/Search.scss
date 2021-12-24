@@ -1,14 +1,14 @@
+@use "./Reponsive.scss" as Reponsive;
 .search {
     width: 100vw;
     height: 0px;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.35s linear;
+    transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
     background-color: rgb(250, 250, 250);
-    
 
-    .header.stiky{
-        & .search{
+    .header.stiky {
+        & .search {
             position: absolute;
             top: 0;
         }
@@ -44,5 +44,21 @@
         font-size: 3.5rem;
         cursor: pointer;
         color: var(--color-text-gray);
+    }
+
+    // Reponsive
+    @include Reponsive.MediaQuery(MD) {
+        // Ipad
+        & .container {
+            width: 100%;
+            padding: 0 45px;
+        }
+    }
+
+    @include Reponsive.MediaQuery(SM) {
+        // Moblie
+        & .container {
+            padding: 0 30px;
+        }
     }
 }

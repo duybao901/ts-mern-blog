@@ -67,7 +67,7 @@
                 &.bx.bxs-check-circle {
                     color: var(--color-success);
                 }
-                &.bx.bxs-error-circle{
+                &.bx.bxs-error-circle {
                     color: var(--color-error);
                 }
             }
@@ -95,6 +95,14 @@
             }
             & p {
                 font-size: 1.5rem;
+            }
+            // List errors
+            & ul {
+                list-style: initial;
+                padding-left: 12px;
+                & li {
+                    font-size: 1.5rem;
+                }
             }
         }
 

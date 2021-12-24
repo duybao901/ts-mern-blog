@@ -1,11 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import LoginPass from '../components/auth/LoginPass'
 import LoginSms from '../components/auth/LoginSms'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { RootStore } from '../utils/TypeScript'
+import { useHistory } from 'react-router-dom'
 const Login = () => {
-
+    const history = useHistory()
+    const { auth } = useSelector((state: RootStore) => state)
     const [signSms, setSignSms] = useState(false)
-
+    useEffect(() => {
+        if (auth.access_token) {
+            history.push('/')
+        }
+    }, [auth.access_token])
     return (
         <div className='auth-page mr-top-header'>
             <div className='auth-page__body'>

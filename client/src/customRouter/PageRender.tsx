@@ -1,9 +1,9 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Params } from '../src/utils/TypeScript'
-import NotFound from './components/global/NotFound'
+import { Params } from '../utils/TypeScript'
+import NotFound from '../components/global/NotFound'
 const generatePage = (name: string) => {
-    const component = () => require(`./pages/${name}`).default   
+    const component = () => require(`../pages/${name}`).default   
     try {
         return React.createElement(component())
     } catch (err) {

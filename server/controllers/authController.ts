@@ -33,7 +33,7 @@ class AuthController {
 
             if (validEmail(account)) {
 
-                // sendMail(account, url, "Active Account", "Verify your email address");
+                sendMail(account, url, "Active Account", "Verify your email address");
 
                 return res.json({
                     msg: "Active account!, Please check your email.",
@@ -42,7 +42,7 @@ class AuthController {
                 })
             } else if (validPhone(account)) {
 
-                // sendSms("Veryfy your phone", url, account)
+                sendSms("Veryfy your phone", url, account)
 
                 return res.json({
                     msg: "Active account!, Please check your phone.",
@@ -59,7 +59,7 @@ class AuthController {
     async activeAccount(req: Request, res: Response) {
         try {
             const { active_token } = req.body;
-
+            console.log(active_token)
             const decode = await <DecodeToken>jwt.verify(active_token, `${process.env.ACTIVE_TOKEN}`);
 
             const { newUser } = decode

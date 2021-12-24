@@ -7,7 +7,7 @@ const Register = () => {
             <div className='auth-page__body'>
                 <h2 className='auth-page__header'>Register</h2>
                 <div style={{ textAlign: 'center', marginBottom: "30px", fontSize: "15px" }}>
-                    <p>Are you have account? <Link style={{ color: "crimson" }} to='/register'>login now</Link></p>
+                    <p>Are you have account? <Link style={{ color: "crimson" }} to='/login'>login now</Link></p>
                 </div>
                 <RegisterForm />
             </div>
