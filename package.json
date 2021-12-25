@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "ts-node-dev server/index.ts",
     "build": "tsc"
@@ -10,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -32,6 +34,7 @@
     "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.3",
     "@types/node": "^16.11.12",
+    "@types/node-fetch": "^3.0.3",
     "@types/nodemailer": "^6.4.4",
     "@types/twilio": "^3.19.3",
     "ts-node-dev": "^1.1.8",

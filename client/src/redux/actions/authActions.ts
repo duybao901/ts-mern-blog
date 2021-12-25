@@ -85,3 +85,13 @@ export const googleLogin = (tokenId: string) => async (dispatch: Dispatch<AuthTy
         return dispatch({ type: ALERT, payload: { error: err.response.data.msg } })
     }
 }
+
+export const facebookLogin = (accessToken: string, userID: string) => async (dispatch: Dispatch<AlertType | AuthType>) => {
+    try {
+        dispatch({ type: ALERT, payload: { loading: true } })
+        const res = await postAPI('login_facebook', { accessToken, userID })
+        console.log(res)
+    } catch (err: any) {
+        return dispatch({ type: ALERT, payload: { error: err.response.data.msg } })
+    }
+}

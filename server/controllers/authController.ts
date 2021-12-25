@@ -10,6 +10,7 @@ import { validEmail, validPhone } from '../middleware/valid'
 // Interface
 import { User, NewUser, DecodeToken, GooglePayload, ParamsUser } from '../config/interface'
 import { OAuth2Client } from 'google-auth-library'
+import axios from 'axios'
 const client = new OAuth2Client(`${process.env.MAILING_CLIENT_ID}`)
 const BASE_URL = process.env.BASE_URL;
 
@@ -158,6 +159,42 @@ class AuthController {
             }
 
         } catch (err: any) {
+            return res.status(500).json({ msg: err.message })
+        }
+    }
+
+    async facebookLogin(req: Request, res: Response) {
+        try {
+            const { accessToken, userID } = req.body
+            const URL = `
+            https://graph.facebook.com/v3.0/${userID}/?fields=id,name,email,picture&access_token=${accessToken}
+          `
+
+            const resUser = await axios.get(URL)
+            const data = resUser.data
+
+            const { name, email, picture } = data
+
+            const password = email + "Nnew6WPx7uMYNcT7Bwsc"
+            const passwordHash = await brcypt.hash(password, 12);
+
+            const user = await Users.findOne({ account: email })
+
+            if (user) {
+                loginUser(user, password, res);
+            } else {
+                const user = {
+                    name,
+                    account: email,
+                    password: passwordHash,
+                    avatar: picture.data.url,
+                    type: 'login'
+                }
+                registerUser(user, res)
+            }
+
+        } catch (err: any) {
+            console.log(err.message)
             return res.status(500).json({ msg: err.message })
         }
     }

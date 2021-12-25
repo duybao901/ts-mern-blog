@@ -1,7 +1,7 @@
 import React from 'react'
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import FacebookLogin, { ReactFacebookLoginProps } from 'react-facebook-login';
-import { googleLogin } from '../../redux/actions/authActions'
+import { googleLogin, facebookLogin } from '../../redux/actions/authActions'
 import { useDispatch } from 'react-redux'
 const SocialLogin = () => {
 
@@ -14,7 +14,8 @@ const SocialLogin = () => {
     }
 
     const responseFacebook = (response: ReactFacebookLoginProps | any) => {
-
+        const { accessToken, userID } = response;
+        dispatch(facebookLogin(accessToken, userID))
     }
 
     const onFailure = (error: any) => {
@@ -32,12 +33,13 @@ const SocialLogin = () => {
                 responseType='code,token'
             />
             <FacebookLogin
-                appId="1088597931155576"
-                autoLoad={true}
+                appId="5505892809427254"
                 // cssClass="facebook-button"
                 fields="name,email,picture"
-                callback={responseFacebook}             
-                onFailure={onFailure} />
+                callback={responseFacebook}
+                onFailure={onFailure}
+                icon="fa-facebook"
+            />
 
         </div>
     )
