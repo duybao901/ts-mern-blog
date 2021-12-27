@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
-
+import { useDispatch } from "react-redux"
 import { FormSubmit } from '../../utils/TypeScript'
+import { loginSMS } from '../../redux/actions/authActions'
 const LoginSms = () => {
+    
+    const dispatch = useDispatch()
     const [phone, setPhone] = useState('')
 
     const onHandleSubmit = (e: FormSubmit) => {
         e.preventDefault()
-
+        dispatch(loginSMS(phone))
     }
 
     return (

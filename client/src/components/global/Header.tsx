@@ -39,6 +39,7 @@ const Header = () => {
 
     const userLogout = () => {
         setOpenSubMenuUser(false)
+        setOpenMenuLeftSide(false)
         dispatch(logout())
     }
 
@@ -118,11 +119,10 @@ const Header = () => {
                                                 <img src={auth.user?.avatar} alt="logo" />
                                                 <p>{auth.user?.name}</p>
                                                 <span>{auth.user?.account}</span>
-                                                <Link to='/profile' onClick={() => setOpenSubMenuUser(false)}>
+                                                <Link to={`/profile/${auth.user?._id}`} onClick={() => setOpenSubMenuUser(false)}>
                                                     Manage your BlogHub Account
                                                 </Link>
                                             </div>
-
                                             <li>
                                                 <Link to="#" onClick={userLogout}>Logout</Link>
                                             </li>
@@ -134,14 +134,14 @@ const Header = () => {
                             <i className='bx bx-search' onClick={() => setOpenSearch(!openSearch)}></i>
                         </li>
                     </ul>
-                </div>
+                </div >
                 <div className="header__search-icon">
                     <i className='bx bx-search' onClick={() => setOpenSearch(!openSearch)}></i> {/* -> For Reponsive */}
                 </div>
-            </div>
+            </div >
             <Search open={openSearch} setOpen={setOpenSearch} />
 
-        </div>
+        </div >
     )
 }
 

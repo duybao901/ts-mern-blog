@@ -30,3 +30,7 @@ export interface User extends UserRegister {
     __v: 0
     _id: string
 }
+
+export interface UserProfile extends UserRegister {
+    avatar: string | File
+}

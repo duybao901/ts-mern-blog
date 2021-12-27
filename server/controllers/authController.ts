@@ -4,7 +4,7 @@ import brcypt from 'bcrypt' // Hasd password
 import jwt from 'jsonwebtoken'
 import { generateActiveToken, generateAccessToken, generateRefreshToken } from '../config/generateToken'
 import sendMail from '../config/sendMail'
-import { sendSms } from '../config/sendSms'
+import { sendSms, smsOTP, smsVerify } from '../config/sendSms'
 // Valid
 import { validEmail, validPhone } from '../middleware/valid'
 // Interface
@@ -199,6 +199,42 @@ class AuthController {
         }
     }
 
+    async loginSms(req: Request, res: Response) {
+        try {
+            const { phone } = req.body;
+            const data = await smsOTP(`${phone}`, "sms")
+            return res.json(data)
+        } catch (err: any) {
+            return res.status(500).json({ msg: err.message })
+        }
+    }
+
+    async verifySms(req: Request, res: Response) {
+        try {
+            const { phone, code } = req.body;
+            const data = await smsVerify(phone, `${code}`);
+            if (!data?.valid) return res.status(400).json({ msg: "Invalid Authentication" })
+
+            const user = await Users.findOne({ account: phone })
+            const password = phone + "Nnew6WPx7uMYNcT7Bwsc";
+            const passwordHash = await brcypt.hash(password, 12);
+
+            if (user) {
+                loginUser(user, password, res);
+            } else {
+                const user = {
+                    name: `${phone}`,
+                    account: `${phone}`,
+                    password: `${passwordHash}`,
+                    type: "login"
+                }
+                registerUser(user, res)
+            }
+
+        } catch (err: any) {
+            return res.status(500).json({ msg: err.message })
+        }
+    }
 }
 
 const loginUser = async (user: User, password: string, res: Response) => {

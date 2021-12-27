@@ -1,9 +1,12 @@
-@forward "./Base";
-@forward "./NotFound";
-@forward "./Header";
-@forward "./Search";
-@forward "./Auth";
-@forward "./Alert";
+
+@import "./Mixin.sass" ;
+@import "./Base";
+@import "./NotFound";
+@import "./Header";
+@import "./Search";
+@import "./Auth";
+@import "./Alert";
+@import "./Profile.scss";
 
 :root {
     --header-height: 95px;

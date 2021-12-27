@@ -16,6 +16,7 @@ const SocialLogin = () => {
     const responseFacebook = (response: ReactFacebookLoginProps | any) => {
         const { accessToken, userID } = response;
         dispatch(facebookLogin(accessToken, userID))
+
     }
 
     const onFailure = (error: any) => {
