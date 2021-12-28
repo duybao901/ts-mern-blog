@@ -15,6 +15,14 @@ export const getAPI = async (url: string, token?: any) => {
             Authorization: token
         }
     })
-
     return res;
+}
+
+export const patchAPI = async (url: string, body: object, token?: any) => {
+    const res = await axios.patch(`/api/${url}`, body, {
+        headers: {
+            Authorization: token
+        }
+    })
+    return res
 }

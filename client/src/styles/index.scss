@@ -1,6 +1,12 @@
 
+// Utils
 @import "./Mixin.sass" ;
+@import "./Reponsive.scss";
+
+// Base
 @import "./Base";
+
+// Component
 @import "./NotFound";
 @import "./Header";
 @import "./Search";
@@ -39,6 +45,7 @@ html {
     font-size: 62.5%;
     font-family: "Fira Sans", sans-serif;
     font-weight: 400;
+    overflow-x: hidden;
 }
 
 body {

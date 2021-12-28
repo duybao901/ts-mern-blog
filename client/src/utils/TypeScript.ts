@@ -17,7 +17,7 @@ export interface UserLogin {
 }
 
 export interface UserRegister extends UserLogin {
-    name: string
+    name: string | ""
     cf_password: string
 }
 

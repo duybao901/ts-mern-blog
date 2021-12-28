@@ -1,3 +1,4 @@
+import { Request } from 'express'
 import { Document } from 'mongoose'
 
 export interface User extends Document {
@@ -34,4 +35,8 @@ export interface ParamsUser {
     password: string
     avatar?: string
     type: string
+}
+
+export interface UserAuth extends Request {
+    user?: User
 }

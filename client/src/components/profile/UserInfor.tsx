@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { RootStore, UserProfile, FormSubmit, InputChange } from '../../utils/TypeScript'
+import { updateProfile } from '../../redux/actions/profileActions'
 const UserInfor = () => {
-    const initState = {
+    const dispatch = useDispatch()
+    let initState = {
         name: '', account: '', avatar: '', password: '', cf_password: ''
     }
     const { auth } = useSelector((state: RootStore) => state)
@@ -19,8 +21,12 @@ const UserInfor = () => {
         })
     }
 
-    const onHandleSubmit = (e: FormSubmit) => {
+    const onHandleSubmit = async (e: FormSubmit) => {
         e.preventDefault()
+        if (avatar || name) {
+            await dispatch(updateProfile(avatar as File, name, auth))
+            setUser(initState)
+        }
     }
 
     const onHandleChangeFile = (e: InputChange) => {
@@ -29,12 +35,15 @@ const UserInfor = () => {
 
         if (files) {
             const file = files[0];
+
             setUser({
                 ...user,
                 avatar: file
             })
         }
     }
+
+
 
     return (
         <>
@@ -74,8 +83,7 @@ const UserInfor = () => {
                         </div>
                     </div>
                     <button
-                        className={(name && password && account && cf_password) ? 'btn-primary' : "btn-primary  btn-primary--ds"}
-                        disabled={(name && password && account && cf_password) ? false : true}>Register</button>
+                        className='btn-primary'>Update</button>
                 </form >
             </div >
         </>

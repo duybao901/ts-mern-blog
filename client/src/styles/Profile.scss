@@ -1,3 +1,4 @@
+// @use "./Reponsive" as Reponsive;
 .profile {
     padding: 40px 0px;
     &__header {
@@ -105,6 +106,7 @@
                     text-transform: capitalize;
                     color: var(--color-black-2);
                     margin-bottom: 6px;
+                    display: block;
                 }
                 & input {
                     @include inputStyle;
@@ -115,5 +117,43 @@
 
     &__blog {
         width: 60%;
+    }
+
+    // Reponsive
+    @include MediaQuery(MD) {
+        & {
+            & .container {
+                padding: 0px 40px;
+                width: 100%;
+            }
+            &__body {
+                flex-wrap: wrap;
+            }
+            &__infor {
+                width: 100%;
+                margin-bottom: 30px;
+                & .user__infor-avatar span {
+                    left: 62%;
+                }
+            }
+
+            &__blog {
+                width: 100%;
+            }
+        }
+    }
+
+    @include MediaQuery(SM) {
+        & {
+            padding: 0px 20px;
+            & .container{
+                padding: 20px 0px;
+            }
+            &__infor {
+                & .user__infor-avatar span {
+                    left: 70%;
+                }
+            }
+        }
     }
 }

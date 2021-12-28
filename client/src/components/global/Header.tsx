@@ -69,7 +69,7 @@ const Header = () => {
                                 auth.access_token ?
                                     <>
                                         <li>
-                                            <Link to='profile'>Profile</Link>
+                                            <Link to={`/profile/${auth.user?._id}`}>Profile</Link>
                                         </li>
                                         <li>
                                             <Link to="#" onClick={userLogout}>Logout</Link>
