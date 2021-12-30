@@ -37,6 +37,10 @@ export interface ParamsUser {
     type: string
 }
 
-export interface UserAuth extends Request {
+export interface UserAuthRequest extends Request {
     user?: User
+}
+
+export interface Category {
+    name: string
 }

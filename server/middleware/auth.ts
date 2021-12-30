@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express'
 import Users from '../models/userModel'
-import { DecodeToken, UserAuth } from '../config/interface'
+import { DecodeToken, UserAuthRequest } from '../config/interface'
 import jwt from 'jsonwebtoken'
-export const auth = async (req: UserAuth, res: Response, next: NextFunction) => {
+export const auth = async (req: UserAuthRequest, res: Response, next: NextFunction) => {
     try {
         const token = req.header("Authorization")
         if (!token) return res.status(400).json({ msg: "Invalid Authentication" })

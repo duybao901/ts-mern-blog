@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
 import Users from '../models/userModel'
-import { UserAuth } from '../config/interface'
+import { UserAuthRequest } from '../config/interface'
 import brycpt from 'bcrypt'
 class UserController {
-    async updateUser(req: UserAuth, res: Response) {
+    async updateUser(req: UserAuthRequest, res: Response) {
         if (!req.user) return res.status(400).json({ msg: "Invalid Authentication" })
 
         try {
@@ -21,7 +21,7 @@ class UserController {
         }
     }
 
-    async resetPassword(req: UserAuth, res: Response) {
+    async resetPassword(req: UserAuthRequest, res: Response) {
         if (!req.user) return res.status(400).json({ msg: "Invalid Authentication" })
 
         if (req.user.type !== "register")
