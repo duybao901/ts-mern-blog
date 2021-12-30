@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { RootStore, Params } from '../../utils/TypeScript'
 
 import UserInfor from '../../components/profile/UserInfor'
@@ -8,8 +8,16 @@ import OrtherInfor from '../../components/profile/OrtherInfor'
 import UserBlog from '../../components/profile/UserBlog'
 
 const Profile = () => {
+    const history = useHistory()
     const { auth } = useSelector((state: RootStore) => state)
     const { slug }: Params = useParams()
+
+    useEffect(() => {
+        if (!auth.access_token) {
+            history.push('/')
+        }
+    }, [auth.access_token])
+
     return (
         <div className="profile">
             <div className="container">

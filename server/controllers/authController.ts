@@ -91,7 +91,7 @@ class AuthController {
             const user = await Users.findOne({ account });
             if (!user) return res.status(400).json({ msg: "Account is not exits." })
 
-            loginUser(user, password, res);
+            loginUser(user, password, res, false);
 
         } catch (err: any) {
             return res.status(500).json({ msg: err.message })
@@ -146,14 +146,14 @@ class AuthController {
             const user = await Users.findOne({ account: email })
 
             if (user) {
-                loginUser(user, password, res);
+                loginUser(user, password, res, true);
             } else {
                 const user = {
                     name,
                     account: email,
                     password: passwordHash,
                     avatar: picture,
-                    type: 'login'
+                    type: 'google'
                 }
                 registerUser(user, res)
             }
@@ -181,14 +181,14 @@ class AuthController {
             const user = await Users.findOne({ account: email })
 
             if (user) {
-                loginUser(user, password, res);
+                loginUser(user, password, res, true);
             } else {
                 const user = {
                     name,
                     account: email,
                     password: passwordHash,
                     avatar: picture.data.url,
-                    type: 'login'
+                    type: 'facebook'
                 }
                 registerUser(user, res)
             }
@@ -220,13 +220,13 @@ class AuthController {
             const passwordHash = await brcypt.hash(password, 12);
 
             if (user) {
-                loginUser(user, password, res);
+                loginUser(user, password, res, true);
             } else {
                 const user = {
                     name: `${phone}`,
                     account: `${phone}`,
                     password: `${passwordHash}`,
-                    type: "login"
+                    type: "sms"
                 }
                 registerUser(user, res)
             }
@@ -237,9 +237,15 @@ class AuthController {
     }
 }
 
-const loginUser = async (user: User, password: string, res: Response) => {
+const loginUser = async (user: User, password: string, res: Response, ortherLogin: boolean) => {
     const isMatch = await brcypt.compare(password, user.password)
-    if (!isMatch) return res.status(400).json({ msg: "Password is incorrect." })
+
+    if (!isMatch) {
+        let msg = user.type !== 'register'
+            ? `Password is incorrect. This account maybe login with ${user.type}` :
+            ortherLogin ? "Password is incorrect. Maybe account use function register normal." : "Password is incorrect."
+        return res.status(400).json({ msg })
+    }
 
     const access_token = generateAccessToken({ id: user._id });
     const refresh_token = generateRefreshToken({ id: user._id });
