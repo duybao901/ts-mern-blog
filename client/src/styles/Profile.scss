@@ -1,15 +1,8 @@
 // @use "./Reponsive" as Reponsive;
 .profile {
     padding: 40px 0px;
-    &__header {
-        font-size: 3rem;
-        font-family: "Poppins", sans-serif;
-    }
     & .indicator {
-        width: 100%;
-        background-color: rgb(235, 232, 232);
-        height: 1px;
-        margin-bottom: 30px;
+        margin: 5px 0px 30px;
     }
     &__body {
         width: 100%;
@@ -146,7 +139,7 @@
     @include MediaQuery(SM) {
         & {
             padding: 0px 20px;
-            & .container{
+            & .container {
                 padding: 20px 0px;
             }
             &__infor {

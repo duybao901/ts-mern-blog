@@ -34,3 +34,4 @@ export interface User extends UserRegister {
 export interface UserProfile extends UserRegister {
     avatar: string | File
 }
+

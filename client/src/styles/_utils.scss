@@ -1,22 +1,8 @@
-a {
-    text-decoration: none;
-    &:hover {
-        color: currentColor;
-    }
-}
-
-ul {
-    list-style: none;
-}
-
-.container {
-    max-width: 1150px;
-    width: 1150px;
-    margin: 0 auto;
-}
-
-.mr-top-header {
-    margin-top: 95px;
+.indicator {
+    width: 100%;
+    background-color: rgb(235, 232, 232);
+    height: 1px;
+    margin-bottom: 30px;
 }
 
 .logo {
@@ -55,5 +41,8 @@ ul {
         &:hover {
             background-color: rgb(41, 41, 41);
         }
+    }
+    &--danger {
+        background-color: var(--color-text-gray);
     }
 }

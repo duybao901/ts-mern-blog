@@ -15,9 +15,9 @@ class CategoryController {
                 name
             })
 
-            await category.save()
+            const newCategory = await category.save()
 
-            return res.status(200).json({ msg: "Create category success." })
+            return res.status(200).json({ category: newCategory })
         } catch (err: any) {
             let errorMessage = '';
             if (err.code === 11000) {
@@ -32,8 +32,8 @@ class CategoryController {
 
     async getCategorys(req: Request, res: Response) {
         try {
-            const categorys = await Categories.find({})
-            return res.json({ categorys })
+            const categories = await Categories.find({}).sort("-createdAt")
+            return res.json({ categories })
         } catch (err: any) {
             return res.status(500).json({ msg: err.message })
         }
@@ -44,7 +44,7 @@ class CategoryController {
         if (req.user?.role !== "admin") return res.status(400).json({ msg: "Invalid Authentication" });
 
         try {
-            const category = await Categories.findOneAndUpdate({
+            await Categories.findOneAndUpdate({
                 _id: req.params.id
             }, { name: req.body.name })
 

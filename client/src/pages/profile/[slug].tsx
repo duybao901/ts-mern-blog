@@ -12,16 +12,17 @@ const Profile = () => {
     const { auth } = useSelector((state: RootStore) => state)
     const { slug }: Params = useParams()
 
-    useEffect(() => {
-        if (!auth.access_token) {
-            history.push('/')
-        }
-    }, [auth.access_token])
+
+    // useEffect(() => {
+    //     if (auth.user?._id !== slug) {
+    //         history.
+    //     }
+    // }, [])
 
     return (
         <div className="profile">
             <div className="container">
-                <h2 className='profile__header'>Profile</h2>
+                <h2 className='profile__header heading'>Profile</h2>
                 <div className='indicator'></div>
                 <div className="profile__body">
                     <div className='profile__infor'>

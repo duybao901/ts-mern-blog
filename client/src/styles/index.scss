@@ -1,11 +1,12 @@
 
 // Utils
-@import "./Mixin.sass" ;
-@import "./Reponsive.scss";
+@import "./mixin.sass" ;
+@import "./reponsive.scss";
 
 // Base
-@import "./Base";
-
+@import "./base";
+@import "./typography.scss";
+@import "./utils";
 // Component
 @import "./NotFound";
 @import "./Header";
@@ -13,6 +14,7 @@
 @import "./Auth";
 @import "./Alert";
 @import "./Profile.scss";
+@import "./Category.scss";
 
 :root {
     --header-height: 95px;
