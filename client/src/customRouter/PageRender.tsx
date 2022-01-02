@@ -6,8 +6,7 @@ const generatePage = (name: string) => {
     const component = () => require(`../pages/${name}`).default   
     try {
         return React.createElement(component())
-    } catch (err) {
-
+    } catch (err) {       
         return <NotFound />
     }
 }

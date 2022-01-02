@@ -60,7 +60,7 @@ export const deleteCategory = (_id: string, token: string) => async (dispatch: D
 
     try {
         dispatch({ type: Types.DELETE_CATEGORY, payload: { _id } })
-        const res = await deleteAPI(`category/${_id}`, token)
+       await deleteAPI(`category/${_id}`, token)
     } catch (err: any) {
         return dispatch({ type: ALERT, payload: { error: err.response.data.msg } })
     }

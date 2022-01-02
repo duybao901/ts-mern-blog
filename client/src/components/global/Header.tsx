@@ -75,6 +75,9 @@ const Header = () => {
                                             </li>
                                         }
                                         <li>
+                                            <Link onClick={() => setOpenMenuLeftSide(false)} to="/create_blog" className={activeMenu('/create_blog')}>Create Blog</Link>
+                                        </li>
+                                        <li>
                                             <Link onClick={() => setOpenMenuLeftSide(false)} className={activeMenu(`/profile/${auth.user?._id}`)} to={`/profile/${auth.user?._id}`}>Profile</Link>
                                         </li>
                                         <li>
@@ -105,6 +108,11 @@ const Header = () => {
                                     <Link to={`${item.path}`} className={activeMenu(item.path)}>{item.label}</Link>
                                 </li>
                             })
+                        }
+                        {
+                            auth.access_token && <li>
+                                <Link className={activeMenu('/create_blog')} to="/create_blog">Create Blog</Link>
+                            </li>
                         }
                         {
                             auth.user?.role === 'admin' &&

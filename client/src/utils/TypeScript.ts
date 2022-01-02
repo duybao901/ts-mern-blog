@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react'
 import rootReducer from '../redux/reducers/index'
 
-export type InputChange = ChangeEvent<HTMLInputElement>
+export type InputChange = ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 export type FormSubmit = ChangeEvent<HTMLFormElement>
 
 export type RootStore = ReturnType<typeof rootReducer>
@@ -35,3 +35,13 @@ export interface UserProfile extends UserRegister {
     avatar: string | File
 }
 
+
+export interface Blog {
+    user: User | string
+    title: string
+    content: string
+    description: string
+    thumbnail: string | File,
+    category: string[],
+    createdAt: string
+}

@@ -9,7 +9,7 @@ interface Props {
     isError?: boolean
 }
 
-const Toast = ({ titie, body, bgColor, isSuccess, isError }: Props) => {
+const Toast: React.FC<Props>= ({ titie, body, bgColor, isSuccess, isError }) => {
 
     const dispatch = useDispatch()
 

@@ -1,0 +1,80 @@
+.create-blog {
+    padding: 40px 0px;
+    & .container {
+        max-width: 1366px !important;
+        height: 100%;
+        margin: 0 auto;
+        width: 100%;
+    }
+    &__body {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        &-left {
+            width: 48%;
+        }
+        &-right {
+            width: 48%;
+        }
+    }
+    & .card-form {
+        width: 100%;
+        & h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        & form {
+            & .form-group {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 15px;
+                & .input-wrap {
+                    position: relative;
+                    & small {
+                        position: absolute;
+                        bottom: 5px;
+                        right: 5px;
+                        font-size: 1.3rem;
+                    }
+                }
+            }
+            & input {
+                @include inputStyle;
+                &#file-up {
+                    height: auto;
+                    padding: 0;
+                    cursor: pointer;
+                }
+                &[type="checkbox"] {
+                    width: auto;
+                    height: 15px;
+                    width: 15px;
+                }
+            }
+            & .cate-checkbox {
+                display: flex;
+                align-items: center;
+                margin-bottom: 5px;
+                & label {
+                    text-transform: capitalize;
+                    margin-left: 10px;
+                    cursor: pointer;
+                    user-select: none;
+                    margin-bottom: 0px;
+                }
+            }
+
+            & textarea {
+                @include inputStyle;
+                resize: none;
+                height: auto;
+                padding: 15px;
+            }
+            & label {
+                font-size: 1.5rem;
+                color: var(--color-black-2);
+                margin-bottom: 5px;
+            }
+        }
+    }
+}

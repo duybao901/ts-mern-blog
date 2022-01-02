@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FormSubmit, InputChange, RootStore } from '../utils/TypeScript'
 import { createCategory, updateCategory, deleteCategory } from '../redux/actions/categoryActions'
 import { Category } from '../redux/types/categoryTypes'
+import NotFound from '../components/global/NotFound'
 const CreateCategory = () => {
 
     const dispatch = useDispatch()
@@ -12,6 +13,7 @@ const CreateCategory = () => {
 
 
     const onHandleSubmit = (e: FormSubmit) => {
+
         e.preventDefault()
         if (!auth.access_token || !name) return
         if (onEdit) {
@@ -26,6 +28,7 @@ const CreateCategory = () => {
         setName('')
     }
 
+
     useEffect(() => {
         if (onEdit) {
             setName(onEdit.name)
@@ -36,6 +39,8 @@ const CreateCategory = () => {
         if (!_id || !auth.access_token) return;
         dispatch(deleteCategory(_id, auth.access_token))
     }
+
+    // if (!auth.access_token) return <NotFound />
 
     return (
         <div className="category">
