@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { RootStore, Blog } from '../utils/TypeScript'
 import CardPreview from '../components/card/CardPreview'
 import CreateBlogForm from '../components/card/CreateBlogForm'
+import Quill from '../components/editor/ReactQuill'
 const CreateBlog = () => {
 
 
@@ -10,15 +11,16 @@ const CreateBlog = () => {
 
     const initalState = {
         user: "",
-        title: "",
+        title: "Title ...",
         content: "",
-        description: "",
-        thumbnail: "",
-        category: [],
+        description: "Description...",
+        thumbnail: "https://res.cloudinary.com/dxnfxl89q/image/upload/v1641224999/bloghub-dev/preview_xwyxap.jpg",
+        category: ["Category1","Category2","..."],
         createdAt: new Date().toDateString()
     }
 
     const [blog, setBlog] = useState<Blog>(initalState)
+    const [body, setBody] = useState('')
 
 
     return (
@@ -34,6 +36,12 @@ const CreateBlog = () => {
                         <CardPreview blog={blog} />
                     </div>
                 </div>
+                <div style={{ margin: "50px 0px" }} className='indicator'></div>
+                <div>
+                    <p style={{ marginBottom: '10px', fontSize: "15px" }}>Body</p>
+                    <Quill setBody={setBody} />
+                </div>
+                <button className='btn-primary' style={{ marginTop: "20px", width: "100%" }} type='submit'>Create Blog</button>
             </div>
         </div>
     )

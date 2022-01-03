@@ -29,6 +29,7 @@ const CreateBlogForm: React.FC<CreateBlogFormProps> = ({ blog, setBlog }) => {
             [name]: value
         })
     }
+ 
     const onHandleChangeCate = (e: InputChange, position: number) => {
 
         const updatedCheckedState = checkedCate.map((item, index) =>
@@ -36,7 +37,6 @@ const CreateBlogForm: React.FC<CreateBlogFormProps> = ({ blog, setBlog }) => {
         );
 
         setCheckedCate(updatedCheckedState)
-
         let cateCheckState: any[] = []
         category.listCategoryName?.forEach((cate, cateIndex) => {
             updatedCheckedState.map((item, index) => {
@@ -120,8 +120,7 @@ const CreateBlogForm: React.FC<CreateBlogFormProps> = ({ blog, setBlog }) => {
                             })
                         }
                     </div>
-                </div>
-                <button className='btn-primary' type='submit'>Create</button>
+                </div>              
             </form >
         </div >
     )

@@ -14,7 +14,7 @@ const CardPreview: React.FC<CardPreviewProps> = ({ blog }) => {
                 {blog.thumbnail &&
                     <div className="card-preview__blog-thumbnail">
 
-                        <img alt='thumbnail' src={blog.thumbnail ? URL.createObjectURL(blog.thumbnail as File) : blog.thumbnail}>
+                        <img alt='thumbnail' src={typeof blog.thumbnail !== "string" ? URL.createObjectURL(blog.thumbnail as File) : blog.thumbnail}>
                         </img>
 
                         <div className="card-preview__blog-createdat">
