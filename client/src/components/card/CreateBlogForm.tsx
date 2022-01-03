@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RootStore, Blog, FormSubmit, InputChange } from '../../utils/TypeScript'
 
@@ -7,12 +7,17 @@ interface CreateBlogFormProps {
     setBlog: (blog: Blog) => void
 }
 
-
 const CreateBlogForm: React.FC<CreateBlogFormProps> = ({ blog, setBlog }) => {
 
     const { category } = useSelector((state: RootStore) => state)
     const { title, description } = blog;
-    const [checkedCate, setCheckedCate] = useState<string[]>([])
+    const [checkedCate, setCheckedCate] = useState<boolean[]>([])
+
+    useEffect(() => {
+        if (category.listCategoryName) {
+            setCheckedCate(new Array(category.listCategoryName?.length).fill(false))
+        }
+    }, [category.listCategoryName])
 
     const onHandleChangeInput = (e: InputChange) => {
         const target = e.target;
@@ -24,33 +29,31 @@ const CreateBlogForm: React.FC<CreateBlogFormProps> = ({ blog, setBlog }) => {
             [name]: value
         })
     }
-    const onHandleChangeCate = (e: InputChange, id: string) => {
+    const onHandleChangeCate = (e: InputChange, position: number) => {
 
-        category.listCategoryName?.forEach(() => {
-            if (checkedCate.includes(id)) {
-                const index = checkedCate.indexOf(id);
-                if (index > -1) {
-                    checkedCate.splice(index, 1);
-                }
-            }
-            else {
-                checkedCate.push(id)
-            }
-        })
-        let array: string[] = [];
-        category.listCategoryName?.forEach(item => {
-            checkedCate.forEach(id => {
-                if (item._id === id) {
-                    array.push(item.name)
+        const updatedCheckedState = checkedCate.map((item, index) =>
+            index === position ? !item : item
+        );
+
+        setCheckedCate(updatedCheckedState)
+
+        let cateCheckState: any[] = []
+        category.listCategoryName?.forEach((cate, cateIndex) => {
+            updatedCheckedState.map((item, index) => {
+                if (item) {
+                    if (cateIndex === index) {
+                        cateCheckState.push(cate.name)
+                    }
                 }
             })
         })
 
         setBlog({
             ...blog,
-            category: array
+            category: cateCheckState
         })
     }
+
 
     const onHandleFileChange = (e: InputChange) => {
         const target = e.target as HTMLInputElement
@@ -100,18 +103,19 @@ const CreateBlogForm: React.FC<CreateBlogFormProps> = ({ blog, setBlog }) => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="category">Chosse Categories</label>
-                    <div>
+                    <div className='cate-checkbox-wrap'>
                         {
                             category.listCategoryName?.map((item, index) => {
-                                return <div className="cate-checkbox" key={index}>
+                                return <div className="cate-checkbox-item" key={index}>
                                     <input
-                                        onChange={(e) => onHandleChangeCate(e, item._id)}
                                         type="checkbox"
-                                        key={item.name}
+                                        id={`custom-checkbox-${index}`}
                                         name={item.name}
-                                        id={item.name}
+                                        value={item.name}
+                                        checked={checkedCate[index] ? checkedCate[index] : false}
+                                        onChange={(e) => onHandleChangeCate(e, index)}
                                     />
-                                    <label htmlFor={item.name}>{item.name}</label>
+                                    <label htmlFor={`custom-checkbox-${index}`}>{item.name}</label>
                                 </div>
                             })
                         }

@@ -31,7 +31,7 @@ const CreateBlog = () => {
                         <CreateBlogForm blog={blog} setBlog={setBlog} />
                     </div>
                     <div className="create-blog__body-right">
-                        <CardPreview />
+                        <CardPreview blog={blog} />
                     </div>
                 </div>
             </div>
