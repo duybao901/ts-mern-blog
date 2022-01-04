@@ -29,7 +29,7 @@ const CreateBlogForm: React.FC<CreateBlogFormProps> = ({ blog, setBlog }) => {
             [name]: value
         })
     }
- 
+
     const onHandleChangeCate = (e: InputChange, position: number) => {
 
         const updatedCheckedState = checkedCate.map((item, index) =>
@@ -97,7 +97,7 @@ const CreateBlogForm: React.FC<CreateBlogFormProps> = ({ blog, setBlog }) => {
                     <div className='input-wrap'>
                         <textarea rows={8} onChange={onHandleChangeInput} name='description' value={description} id='description' />
                         <small>
-                            {description.length}/500
+                            {description.length}/200
                         </small>
                     </div>
                 </div>
@@ -107,7 +107,7 @@ const CreateBlogForm: React.FC<CreateBlogFormProps> = ({ blog, setBlog }) => {
                         {
                             category.listCategoryName?.map((item, index) => {
                                 return <div className="cate-checkbox-item" key={index}>
-                                    <input
+                                    <input                                     
                                         type="checkbox"
                                         id={`custom-checkbox-${index}`}
                                         name={item.name}
@@ -120,7 +120,7 @@ const CreateBlogForm: React.FC<CreateBlogFormProps> = ({ blog, setBlog }) => {
                             })
                         }
                     </div>
-                </div>              
+                </div>
             </form >
         </div >
     )

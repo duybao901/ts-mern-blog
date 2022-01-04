@@ -40,7 +40,11 @@ const CreateCategory = () => {
         dispatch(deleteCategory(_id, auth.access_token))
     }
 
-    // if (!auth.access_token) return <NotFound />
+    if (!auth.access_token && auth.user?.role === 'admin') {
+        if (!alert.loading) {
+            return <NotFound />
+        }
+    }
 
     return (
         <div className="category">

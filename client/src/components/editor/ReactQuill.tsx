@@ -33,6 +33,9 @@ const Quill: React.FC<QuillProps> = ({ setBody }) => {
     const dispatch = useDispatch()
     const quillRef = useRef<ReactQuill>(null)
 
+    // You need to use useMemo or useCallback to memoize the plugin function and object creations,
+    //  if these plugins are defined inline in a function component.
+    //   The ReactQuill wrapper will rebuild the editor if these values change identity.
     const imageHandler = useCallback(async () => {
         console.log('dispatch')
         // Create Tag Input and Click
@@ -67,7 +70,7 @@ const Quill: React.FC<QuillProps> = ({ setBody }) => {
 
             dispatch({ type: ALERT, payload: { loading: false } })
         }
-    }, [dispatch])
+    }, [dispatch, quillRef])
 
     const modules = {
         toolbar: {
@@ -80,7 +83,6 @@ const Quill: React.FC<QuillProps> = ({ setBody }) => {
     }
 
     // Custom Image
-
     return (
         <div>
             <ReactQuill theme="snow"

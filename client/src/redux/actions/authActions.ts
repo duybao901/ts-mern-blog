@@ -65,10 +65,11 @@ export const logout = () => async (dispatch: Dispatch<AuthType | AlertType>) => 
         localStorage.removeItem("firstLogin");
 
         const res = await getAPI("logout");
+
         dispatch({ type: AUTH, payload: {} })
         dispatch({ type: ALERT, payload: { loading: false } })
         dispatch({ type: ALERT, payload: { success: res.data.msg } })
-
+        window.location.href = "/login"
     } catch (err: any) {
         return dispatch({ type: ALERT, payload: { error: err.response.data.msg } })
     }
