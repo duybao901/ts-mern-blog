@@ -29,5 +29,7 @@ app.listen(PORT, () => {
 app.use('/api', routers.authRouter)
 app.use('/api', routers.userRouter)
 app.use('/api', routers.categoryRouter)
+app.use('/api', routers.blogRouter)
+app.use('/api', routers.tagRouter)
 
 

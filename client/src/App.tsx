@@ -6,14 +6,15 @@ import Header from './components/global/Header';
 import Alert from './components/alert/Alert';
 import { refreshToken } from './redux/actions/authActions'
 import { getCategories } from './redux/actions/categoryActions'
+import { getTags } from './redux/actions/tagActions'
 import { RootStore } from './utils/TypeScript'
-import { auth } from 'google-auth-library';
 function App() {
     const { alert } = useSelector((state: RootStore) => state);
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(refreshToken())
         dispatch(getCategories())
+        dispatch(getTags())
     }, [])
 
     useEffect(() => {

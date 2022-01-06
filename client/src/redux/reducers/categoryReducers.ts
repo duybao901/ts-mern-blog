@@ -6,13 +6,13 @@ const categoryReducers = (state: CategoryPayload = {}, action: CategoryType): Ca
         case Types.CREATE_CATEGORY: {
             return {
                 ...state,
-                listCategoryName: state.listCategoryName ? [{ ...action.payload.category }, ...state.listCategoryName] : [{ ...action.payload.category }]
+                listCategory: state.listCategory ? [{ ...action.payload.category }, ...state.listCategory] : [{ ...action.payload.category }]
             }
         }
         case Types.GET_CATEGORIES: {
             return {
                 ...state,
-                listCategoryName: [...action.payload.categories]
+                listCategory: [...action.payload.categories]
             }
         }
         case Types.LOADING_CATEGORY: {
@@ -24,7 +24,7 @@ const categoryReducers = (state: CategoryPayload = {}, action: CategoryType): Ca
         case Types.UPDATE_CATEGORY: {
             return {
                 ...state,
-                listCategoryName: state.listCategoryName?.map(item => {
+                listCategory: state.listCategory?.map(item => {
                     return item._id === action.payload._id ? { ...item, name: action.payload.name } : item
                 })
             }
@@ -32,7 +32,7 @@ const categoryReducers = (state: CategoryPayload = {}, action: CategoryType): Ca
         case Types.DELETE_CATEGORY: {
             return {
                 ...state,
-                listCategoryName: state.listCategoryName?.filter(item => item._id !== action.payload._id)
+                listCategory: state.listCategory?.filter(item => item._id !== action.payload._id)
             }
         }
         default:

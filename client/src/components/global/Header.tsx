@@ -70,9 +70,14 @@ const Header = () => {
                                     <>
                                         {
                                             auth.user?.role === 'admin' &&
-                                            <li>
-                                                <Link onClick={() => setOpenMenuLeftSide(false)} to="/create_category" className={activeMenu('/create_category')}>Create Category</Link>
-                                            </li>
+                                            <>
+                                                <li>
+                                                    <Link onClick={() => setOpenMenuLeftSide(false)} to="/create_category" className={activeMenu('/create_category')}>Create Category</Link>
+                                                </li>
+                                                <li>
+                                                    <Link onClick={() => setOpenMenuLeftSide(false)} to="/create_tag" className={activeMenu('/create_tag')}>Create Tag</Link>
+                                                </li>
+                                            </>
                                         }
                                         <li>
                                             <Link onClick={() => setOpenMenuLeftSide(false)} to="/create_blog" className={activeMenu('/create_blog')}>Create Blog</Link>
@@ -116,9 +121,14 @@ const Header = () => {
                         }
                         {
                             auth.user?.role === 'admin' &&
-                            <li>
-                                <Link className={activeMenu('/create_category')} to="/create_category">Create Category</Link>
-                            </li>
+                            <>
+                                <li>
+                                    <Link className={activeMenu('/create_category')} to="/create_category">Create Category</Link>
+                                </li>
+                                <li>
+                                    <Link className={activeMenu('/create_tag')} to="/create_tag">Create Tag</Link>
+                                </li>
+                            </>
                         }
                         {
                             !auth.access_token ?

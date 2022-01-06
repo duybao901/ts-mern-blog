@@ -20,7 +20,8 @@ const CreateBlog = () => {
         content: "",
         description: "Description...",
         thumbnail: "https://res.cloudinary.com/dxnfxl89q/image/upload/v1641273965/bloghub-dev/preview_y5npqa.jpg",
-        category: [],
+        category: "",
+        tags: [],
         createdAt: new Date().toDateString()
     }
 
@@ -29,7 +30,6 @@ const CreateBlog = () => {
     const [text, setText] = useState("");
 
     const divRef = useRef<HTMLDivElement>(null)
-
 
     useEffect(() => {
         const div = divRef.current;
@@ -42,13 +42,14 @@ const CreateBlog = () => {
     const handleSubmit = () => {
 
         if (!auth.access_token) return;
-
+        console.log(blog)
         const check = validBlog({ ...blog, content: body });
 
         if (check.errorsLength !== 0) {
             return dispatch({ type: ALERT, payload: { error: check.errors } })
         }
-        dispatch(createBlog({ ...blog, content: body }))
+        console.log({ ...blog, content: body })
+        dispatch(createBlog({ ...blog, content: body }, auth.access_token))
     }
 
     if (!auth.access_token) {

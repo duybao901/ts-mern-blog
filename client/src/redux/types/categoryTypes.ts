@@ -12,7 +12,7 @@ export interface Category {
 }
 
 export interface CategoryPayload {
-    listCategoryName?: Category[],
+    listCategory?: Category[],
     loading?: boolean
 }
 

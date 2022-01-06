@@ -28,9 +28,8 @@ const CardPreview: React.FC<CardPreviewProps> = ({ blog }) => {
                     </div>
                 }
                 <ul className="card-preview__blog-cate">
-
                     {
-                        blog.category?.map((item, index) => {
+                        blog.tags?.map((item, index) => {
                             return <li key={index}>
                                 <Link to={`#`}>
                                     #{item}

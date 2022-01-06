@@ -65,9 +65,12 @@ export const validBlog = (blog: Blog) => {
     if (!blog.thumbnail) {
         checks.push("Thumbnail can't be left blank")
     }
-
-    if (blog.category.length === 0) {
+    if (blog.category === "") {
         checks.push("Category can't be left blank")
+    }
+
+    if (blog.tags.length === 0) {
+        checks.push("Tag can't be left blank")
     }
 
     return {
