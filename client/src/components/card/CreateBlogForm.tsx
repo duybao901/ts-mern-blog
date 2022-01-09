@@ -48,12 +48,24 @@ const CreateBlogForm: React.FC<CreateBlogFormProps> = ({ blog, setBlog }) => {
             index === position ? !item : item
         );
 
+        // [false, flase, true, true]
         setCheckedTag(updatedCheckedState)
         tag.listTag?.forEach((tag, cateIndex) => {
             updatedCheckedState.map((item, index) => {
                 if (item) {
-                    if (cateIndex === index && !blog.tags.includes(tag.name)) {
-                        blog.tags.push(tag.name)
+                    if (cateIndex === index) {
+                        if (!blog.tags.includes(tag.name)) {
+                            blog.tags.push(tag.name)
+                        }
+                    }
+                } else {
+                    if (cateIndex === index) {
+                        if (blog.tags.includes(tag.name)) {
+                            const index = blog.tags.indexOf(tag.name);
+                            if (index > -1) {
+                                blog.tags.splice(index, 1);
+                            }
+                        }
                     }
                 }
             })
@@ -105,7 +117,7 @@ const CreateBlogForm: React.FC<CreateBlogFormProps> = ({ blog, setBlog }) => {
     const handleDeleteYourTag = (item: string) => {
 
         setTagNameArray(tagNameArray.filter(e => e !== item))
-      
+
         setBlog({
             ...blog,
             tags: blog.tags.filter(e => e !== item)
@@ -119,38 +131,42 @@ const CreateBlogForm: React.FC<CreateBlogFormProps> = ({ blog, setBlog }) => {
 
         if (files) {
             const file = files[0];
-            setBlog({
-                ...blog,
-                thumbnail: file
-            })
+            if (file) {
+                setBlog({
+                    ...blog,
+                    thumbnail: file
+                })
+            }
         }
-
-
     }
 
     return (
         <div className="card-form">
             <h2>Create</h2>
             <form>
+
                 <div className="form-group">
                     <label htmlFor="title">Title</label>
                     <div className='input-wrap'>
                         <input onChange={onHandleChangeInput} type="text" name='title' value={title} id='title' />
                         <small>
-                            {title.length}/50
+                            {title.length}/100
                         </small>
                     </div>
                 </div>
+
+                {/* Thumbnail */}
                 <div className="form-group">
                     <label htmlFor="file-up">Thumbnail</label>
                     <input onChange={onHandleFileChange} type="file" accept='image/*' name='title' id='file-up' />
                 </div>
+
                 <div className="form-group">
                     <label htmlFor="description">Description</label>
                     <div className='input-wrap'>
                         <textarea rows={8} onChange={onHandleChangeInput} name='description' value={description} id='description' />
                         <small>
-                            {description.length}/200
+                            {description.length}/300
                         </small>
                     </div>
                 </div>
@@ -188,6 +204,7 @@ const CreateBlogForm: React.FC<CreateBlogFormProps> = ({ blog, setBlog }) => {
                         }
                     </div>
                 </div>
+
                 <div className="form-group" >
                     <label onClick={() => setToggleTagInput(!toggleTagInput)} className="label-btn" htmlFor="tags">Or Add Your tag <i className='bx bx-purchase-tag-alt'></i></label>
                     {
@@ -211,6 +228,7 @@ const CreateBlogForm: React.FC<CreateBlogFormProps> = ({ blog, setBlog }) => {
                         msgErrorTagName && <small style={{ fontSize: "14px", marginTop: "10px", color: "crimson" }}>{msgErrorTagName}</small>
                     }
                 </div>
+
             </form >
         </div >
     )

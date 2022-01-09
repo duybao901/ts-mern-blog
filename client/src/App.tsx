@@ -7,6 +7,7 @@ import Alert from './components/alert/Alert';
 import { refreshToken } from './redux/actions/authActions'
 import { getCategories } from './redux/actions/categoryActions'
 import { getTags } from './redux/actions/tagActions'
+import { getHomeBlogs, getFeatureBlogs } from './redux/actions/blogActions'
 import { RootStore } from './utils/TypeScript'
 function App() {
     const { alert } = useSelector((state: RootStore) => state);
@@ -15,6 +16,8 @@ function App() {
         dispatch(refreshToken())
         dispatch(getCategories())
         dispatch(getTags())
+        dispatch(getHomeBlogs())
+        dispatch(getFeatureBlogs())
     }, [])
 
     useEffect(() => {

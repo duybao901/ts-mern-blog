@@ -12,7 +12,7 @@ import { createBlog } from '../redux/actions/blogActions'
 const CreateBlog = () => {
 
     const dispatch = useDispatch()
-    const { auth, category: cate, alert } = useSelector((state: RootStore) => state)
+    const { auth, alert } = useSelector((state: RootStore) => state)
 
     const initalState = {
         user: "",
@@ -26,8 +26,8 @@ const CreateBlog = () => {
     }
 
     const [blog, setBlog] = useState<Blog>(initalState)
-    const [body, setBody] = useState('')
-    const [text, setText] = useState("");
+    const [body, setBody] = useState<string>('')
+    const [text, setText] = useState<string>("");
 
     const divRef = useRef<HTMLDivElement>(null)
 
@@ -39,17 +39,18 @@ const CreateBlog = () => {
         setText(text)
     }, [body])
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
 
         if (!auth.access_token) return;
-        console.log(blog)
         const check = validBlog({ ...blog, content: body });
 
         if (check.errorsLength !== 0) {
             return dispatch({ type: ALERT, payload: { error: check.errors } })
         }
-        console.log({ ...blog, content: body })
-        dispatch(createBlog({ ...blog, content: body }, auth.access_token))
+        await dispatch(createBlog({ ...blog, content: body }, auth.access_token))
+        // setBlog(initalState)
+        setBody("");
+        setText("");
     }
 
     if (!auth.access_token) {
@@ -78,18 +79,16 @@ const CreateBlog = () => {
                     <p style={{ marginBottom: '10px', fontSize: "15px" }}>Content</p>
 
                     <Quill setBody={setBody} />
-
                     {/*
-                        dangerouslySetInnerHTML tương đương với innerHTML trong DOM. 
+                        dangerouslySetInnerHTML tương đương với innerHTML trong DOM.
                         Nhìn chung, việc thay đổi DOM từ Javascript khá rủi ro do nó có thể vô tình để lộ người dùng cross-site scripting (XSS). Vì vậy, React có thể tạo HTML trực tiếp, nhưng bạn phải sử dụng dangerouslySetInnerHTML 
-                        và truyền một object với key là _html để nhăc bạn nhớ rằng điều này không an toàn 
+                        và truyền một object với key là _html để nhăc bạn nhớ rằng điều này không an toàn
                     */}
                     <div ref={divRef}
                         dangerouslySetInnerHTML={{ __html: body }}
                         style={{ display: "none" }}
                     ></div>
-
-                    <span style={{ fontSize: "14px", marginTop: "5px", display: "block" }}>{text.length}/2000</span>
+                    <span style={{ fontSize: "14px", marginTop: "5px", display: "block" }}>{text.length}/5000</span>
 
                 </div>
                 <button onClick={handleSubmit} className='btn-primary' style={{ marginTop: "20px", width: "100%" }}>Create Blog</button>

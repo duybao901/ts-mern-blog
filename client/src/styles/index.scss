@@ -16,11 +16,11 @@
 @import "./Profile.scss";
 @import "./Category.scss";
 @import "./CreateBlog.scss";
-
+@import "./Home.scss";
 :root {
     --header-height: 95px;
     --color-primary: rgb(247, 59, 152);
-    --color-primary-light:rgb(245, 88, 166);
+    --color-primary-light:rgb(255, 255, 255);
 
 
     --color-black: #000;

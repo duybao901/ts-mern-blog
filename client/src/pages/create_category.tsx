@@ -22,7 +22,6 @@ const CreateCategory = () => {
         } else {
             dispatch(createCategory(name, auth.access_token))
         }
-
         setOnEdit(null)
         setName('')
     }

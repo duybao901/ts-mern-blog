@@ -38,27 +38,27 @@ export const validEmail = (email: string) => {
 export const validBlog = (blog: Blog) => {
     let checks: string[] = []
 
-    if (blog.title.trim().length < 10) {
-        checks.push("Title is at least 10 characters")
+    if (blog.title.trim().length < 20) {
+        checks.push("Title is at least 20 characters")
     } else {
-        if (blog.title.trim().length > 50) {
-            checks.push("Title is up to at least 50 characters long")
+        if (blog.title.trim().length > 100) {
+            checks.push("Title is up to at least 100 characters long")
         }
     }
 
-    if (blog.description.trim().length < 50) {
-        checks.push("Description is at least 50 characters")
+    if (blog.description.trim().length < 80) {
+        checks.push("Description is at least 80 characters")
     } else {
-        if (blog.description.trim().length > 200) {
-            checks.push("Description is up to at least 200 characters long")
+        if (blog.description.trim().length > 300) {
+            checks.push("Description is up to at least 300 characters long")
         }
     }
 
     if (blog.content.trim().length < 500) {
         checks.push("Content is at least 500 characters")
     } else {
-        if (blog.content.trim().length > 2000) {
-            checks.push("Content is up to at least 2000 characters long")
+        if (blog.content.trim().length > 5000) {
+            checks.push("Content is up to at least 5000 characters long")
         }
     }
 

@@ -9,24 +9,28 @@ const blogScheme = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        minlength: [10, "Title is at least 10 characters"],
-        maxlength: [50, "Title is up to at least 50 characters long"]
+        minlength: [20, "Title is at least 20 characters"],
+        maxlength: [100, "Title is up to at least 100 characters long"]
     },
     description: {
         type: String,
         required: true,
         trim: true,
-        minlength: [50, "Description is at least 50 characters"],
-        maxlength: [200, "Description is up to at least 200 characters long"]
+        minlength: [80, "Description is at least 80 characters"],
+        maxlength: [300, "Description is up to at least 300 characters long"]
     },
     content: {
         type: String,
         required: true,
-        maxlength: [2000, "Description is up to at least 2000 characters long"]
+        maxlength: [5000, "Description is up to at least 5000 characters long"]
     },
     thumbnail: {
         type: String,
         required: true,
+    },
+    isFeature: {
+        type: Boolean,
+        default: false
     },
     category: {
         type: mongoose.Types.ObjectId,
@@ -38,7 +42,11 @@ const blogScheme = new mongoose.Schema({
             type: String,
             require: true,
         }
-    ]
+    ],
+    views: {
+        type: String,
+        default: 0
+    }
 
 }, {
     timestamps: true

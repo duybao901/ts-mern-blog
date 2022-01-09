@@ -37,6 +37,7 @@ export interface UserProfile extends UserRegister {
 
 
 export interface Blog {
+    _id?: string
     user: User | string
     title: string
     content: string
