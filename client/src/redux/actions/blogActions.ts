@@ -45,12 +45,13 @@ export const getHomeBlogs = () => async (dispatch: Dispatch<AlertType | BlogType
 
 export const getFeatureBlogs = () => async (dispatch: Dispatch<AlertType | BlogTypes>) => {
     try {
-        dispatch({ type: ALERT, payload: { loading: true } })
+        dispatch({ type: Types.FEATURE_BLOG_LOADING, payload: { featureBlogLoading: true } })
         const res = await getAPI('feature/blog');
 
         dispatch({ type: Types.GET_FEATURE_BLOGS, payload: res.data })
 
-        dispatch({ type: ALERT, payload: { loading: false } })
+        dispatch({ type: Types.FEATURE_BLOG_LOADING, payload: { featureBlogLoading: false } })
+
     } catch (err: any) {
         return dispatch({ type: ALERT, payload: { error: err.response.data.msg } })
     }

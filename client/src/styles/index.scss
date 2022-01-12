@@ -17,10 +17,13 @@
 @import "./Category.scss";
 @import "./CreateBlog.scss";
 @import "./Home.scss";
+@import "./CardBlog.scss";
+@import "./Footer.scss";
+
 :root {
     --header-height: 95px;
     --color-primary: rgb(247, 59, 152);
-    --color-primary-light:rgb(255, 255, 255);
+    --color-primary-light:rgb(247, 100, 173);
 
 
     --color-black: #000;

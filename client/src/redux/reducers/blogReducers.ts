@@ -13,16 +13,26 @@ const blogReducer = (state: BlogPayload = initialState, action: BlogTypes): Blog
                 ...state
             }
         }
-        case Types.GET_HOME_BLOGS:{
+        case Types.GET_HOME_BLOGS: {
             return {
                 ...state,
                 homeBlog: action.payload
             }
         }
-        case Types.GET_FEATURE_BLOGS:{
+        case Types.GET_FEATURE_BLOGS: {
             return {
                 ...state,
                 featureBlog: action.payload
+            }
+        }
+        case Types.FEATURE_BLOG_LOADING: {
+            console.log(action.payload)
+            return {
+                ...state,
+                featureBlog: {
+                    ...state.featureBlog,
+                    featureBlogLoading: action.payload.featureBlogLoading
+                }
             }
         }
         default:

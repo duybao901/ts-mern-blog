@@ -1,13 +1,16 @@
 import { Request, Response } from 'express'
 import Blogs from '../models/blogModel'
 import { UserAuthRequest } from '../config/interface'
+import nonAccentVietnamese from '../config/nonAccentVietnamese';
 class BlogController {
     async createBlog(req: UserAuthRequest, res: Response) {
         try {
             const { title, description, thumbnail, category, tags, content } = req.body;
+            let slug = nonAccentVietnamese(title)
             const newBlog = new Blogs({
                 user: req.user?._id,
                 title,
+                slug: `${slug.toLowerCase().trim().replace(/\s/g, '-')}-${new Date().getTime()}`,
                 description,
                 thumbnail,
                 category,

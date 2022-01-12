@@ -57,8 +57,8 @@ export const validBlog = (blog: Blog) => {
     if (blog.content.trim().length < 500) {
         checks.push("Content is at least 500 characters")
     } else {
-        if (blog.content.trim().length > 5000) {
-            checks.push("Content is up to at least 5000 characters long")
+        if (blog.content.trim().length > 7000) {
+            checks.push("Content is up to at least 7000 characters long")
         }
     }
 

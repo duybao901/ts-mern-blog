@@ -12,6 +12,10 @@ const blogScheme = new mongoose.Schema({
         minlength: [20, "Title is at least 20 characters"],
         maxlength: [100, "Title is up to at least 100 characters long"]
     },
+    slug: {
+        type: String,
+        required: true,
+    },
     description: {
         type: String,
         required: true,
@@ -22,7 +26,7 @@ const blogScheme = new mongoose.Schema({
     content: {
         type: String,
         required: true,
-        maxlength: [5000, "Description is up to at least 5000 characters long"]
+        maxlength: [7000, "Description is up to at least 7000 characters long"]
     },
     thumbnail: {
         type: String,

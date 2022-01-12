@@ -1,13 +1,13 @@
 .home {
-    background-image: url("../images/banner.jpg");
-    width: 100%;
-    min-height: 870px;
-    background-size: cover;
-    overflow: hidden;
-    background-position: center center;
-    position: relative;
-    padding: 90px 0px;
     &__banner {
+        background-image: url("../images/banner.jpg");
+        background-position: center center;
+        background-size: cover;
+        padding: 90px 0px;
+        width: 100%;
+        min-height: 870px;
+        overflow: hidden;
+        position: relative;
         & h2 {
             font-size: 1.5rem;
             color: var(--color-black-2);
@@ -60,10 +60,10 @@
                             display: flex;
                             & li {
                                 margin-right: 10px;
-                                & a{
+                                & a {
                                     font-size: 1.4rem;
                                     font-weight: 400;
-                                    color: var(--color-primary); 
+                                    color: var(--color-primary);
                                 }
                             }
                         }
@@ -75,6 +75,68 @@
                     object-fit: cover;
                 }
             }
+        }
+    }
+    &__blogs {
+        padding: 90px 0px;
+        width: 100%;
+        &-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+    }
+    //  Phone
+    @include MediaQuery(SM) {
+        &__banner {
+            &-feature-post {
+                top: 50%;
+                left: 50%;
+                width: 300px;
+                & .feature-post__list {
+                    display: flex;
+                    flex-direction: column;
+                    &-item {
+                        & .item__infor {
+                            & a {
+                                font-size: 1.5rem;
+                            }
+                            &-category {
+                                display: flex;
+                                width: 100%;
+                                flex-wrap: wrap;
+                                & li {
+                                    & a {
+                                        font-size: 1.3rem;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        & .container {
+            width: 100%;
+        }
+    }
+    @include MediaQuery(XL) {
+        & .container {
+            width: 100%;
+        }
+    }
+
+    // Ipad
+    @include MediaQuery(MD) {
+        &__banner {
+            &-feature-post {
+                top: 50%;
+                left: 50%;
+                width: 350px;
+            }
+        }
+        & .container {
+            width: 100%;
         }
     }
 }

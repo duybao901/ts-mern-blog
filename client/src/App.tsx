@@ -9,15 +9,19 @@ import { getCategories } from './redux/actions/categoryActions'
 import { getTags } from './redux/actions/tagActions'
 import { getHomeBlogs, getFeatureBlogs } from './redux/actions/blogActions'
 import { RootStore } from './utils/TypeScript'
+import Footer from './components/global/Footer';
 function App() {
     const { alert } = useSelector((state: RootStore) => state);
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(refreshToken())
-        dispatch(getCategories())
-        dispatch(getTags())
-        dispatch(getHomeBlogs())
-        dispatch(getFeatureBlogs())
+        const getInit = async () => {
+            dispatch(refreshToken())
+            dispatch(getCategories())
+            dispatch(getTags())
+            dispatch(getHomeBlogs())
+            dispatch(getFeatureBlogs())
+        }
+        getInit();
     }, [])
 
     useEffect(() => {
@@ -48,6 +52,7 @@ function App() {
                     <Route path='/:page' exact component={PageRender}></Route>
                     <Route path='/:page/:slug' exact component={PageRender}></Route>
                 </Switch>
+                <Footer />
             </Router>
         </div>
     );

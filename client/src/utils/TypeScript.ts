@@ -40,6 +40,7 @@ export interface Blog {
     _id?: string
     user: User | string
     title: string
+    slug?: string
     content: string
     description: string
     thumbnail: string | File,
